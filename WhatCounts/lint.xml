@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<lint>
+    <issue id="NestedWeights">
+        <ignore path="res/layout/fragment_counters.xml" />
+    </issue>
+    <issue id="SmallSp">
+        <ignore path="res/layout/graph_list_item.xml" />
+    </issue>
+    <issue id="UseCompoundDrawables">
+        <ignore path="res/layout/graph_list_item.xml" />
+    </issue>
+    <issue id="UselessLeaf">
+        <ignore path="res/layout/fragment_counters.xml" />
+    </issue>
+</lint>
