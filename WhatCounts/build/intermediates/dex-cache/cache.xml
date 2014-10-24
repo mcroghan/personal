@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<pre-dex-items>
+
+    <item
+        dex="/Users/mcroghan/Studio/personal/WhatCounts/app/build/intermediates/pre-dexed/debug/internal_impl-20.0.0-8a0677912ea8e4e5e23bd5d34996eebc6ecbe1e9.jar"
+        jar="/Users/mcroghan/Studio/personal/WhatCounts/app/build/intermediates/exploded-aar/com.android.support/support-v4/20.0.0/libs/internal_impl-20.0.0.jar"
+        jumboMode="false"
+        revision="20.0.0"
+        sha1="e40b3078e3fbd353c9f44da8df25a8fc0078209d"/>
+    <item
+        dex="/Users/mcroghan/Studio/personal/WhatCounts/app/build/intermediates/pre-dexed/debug/classes-18e50fc53dc9bb79424720b806bc662e528ef49d.jar"
+        jar="/Users/mcroghan/Studio/personal/WhatCounts/app/build/intermediates/exploded-aar/com.android.support/support-v4/20.0.0/classes.jar"
+        jumboMode="false"
+        revision="20.0.0"
+        sha1="8694693636ab36910c8100ce527c258ff3ebece0"/>
+    <item
+        dex="/Users/mcroghan/Studio/personal/WhatCounts/app/build/intermediates/pre-dexed/debug/support-annotations-20.0.0-bca9cd8c8082330ef7549e0398af852faae531fd.jar"
+        jar="/Applications/Android Studio.app/sdk/extras/android/m2repository/com/android/support/support-annotations/20.0.0/support-annotations-20.0.0.jar"
+        jumboMode="false"
+        revision="20.0.0"
+        sha1="9d9013e9ff35fc3756411e62873c363c70c638fa"/>
+
+</pre-dex-items>
