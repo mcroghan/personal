@@ -17,7 +17,6 @@
             android:textStyle="bold"
             android:textSize="24sp"
             android:layout_marginLeft="@dimen/activity_horizontal_margin"
-            android:layout_marginBottom="@dimen/activity_vertical_margin"
             android:text="@string/today"/>
 
 	    <LinearLayout
@@ -26,7 +25,6 @@
 	        android:layout_height="wrap_content"
 	        android:layout_below="@id/date"
 	        android:gravity="center_vertical|left"
-            android:layout_marginBottom="@dimen/activity_vertical_margin"
 	        android:orientation="horizontal">
 		
 		        <TextView
@@ -72,7 +70,6 @@
 	    </LinearLayout>
 	    <LinearLayout
             android:id="@+id/row2"
-            android:layout_marginBottom="@dimen/activity_vertical_margin"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@id/row1"
