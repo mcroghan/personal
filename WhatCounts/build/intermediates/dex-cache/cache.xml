@@ -2,25 +2,67 @@
 <items version="2" >
 
     <item
-        jar="/Users/mcroghan/Studio/personal/WhatCounts/app/build/intermediates/exploded-aar/com.android.support/support-v4/22.2.0/jars/classes.jar"
+        is-multidex="false"
+        jar="/Users/mcroghan/sdk/extras/android/m2repository/com/android/support/support-annotations/25.1.1/support-annotations-25.1.1.jar"
         jumboMode="false"
+        optimize="true"
         revision="20.0.0"
-        sha1="1ee588ff2c4daf7b97c1cbf922a6c7f027285c2f">
-        <dex dex="/Users/mcroghan/Studio/personal/WhatCounts/app/build/intermediates/pre-dexed/debug/classes-7377a750ccc05ac2dd56f69b12c983a9d4ddeff6.jar" />
+        sha1="b59b6ee8d6ecc03e672d253800430343493a6ed8">
+        <dex dex="/Users/mcroghan/Studio/personal/WhatCounts/app/build/intermediates/pre-dexed/debug/support-annotations-25.1.1_00c6cc47bd4a7e04e21242c3053428411a147db2.jar" />
     </item>
     <item
-        jar="/Users/mcroghan/sdk/extras/android/m2repository/com/android/support/support-annotations/22.2.0/support-annotations-22.2.0.jar"
+        is-multidex="false"
+        jar="/Users/mcroghan/Studio/personal/WhatCounts/app/build/intermediates/exploded-aar/com.android.support/support-core-utils/25.1.1/jars/classes.jar"
         jumboMode="false"
+        optimize="true"
         revision="20.0.0"
-        sha1="66b42a1f3eb7676070b7ef7f14b603483aecbee1">
-        <dex dex="/Users/mcroghan/Studio/personal/WhatCounts/app/build/intermediates/pre-dexed/debug/support-annotations-22.2.0-fe95083c376b970b20a33e474f587145ca89c277.jar" />
+        sha1="0fb891e8f0cfba0513043a7bb357513d229ca2cd">
+        <dex dex="/Users/mcroghan/Studio/personal/WhatCounts/app/build/intermediates/pre-dexed/debug/com.android.support-support-core-utils-25.1.1_8948866bd3c003b84fb9c8a1b430bd3c594e50c4.jar" />
     </item>
     <item
-        jar="/Users/mcroghan/Studio/personal/WhatCounts/app/build/intermediates/exploded-aar/com.android.support/support-v4/22.2.0/jars/libs/internal_impl-22.2.0.jar"
+        is-multidex="false"
+        jar="/Users/mcroghan/Studio/personal/WhatCounts/app/build/intermediates/exploded-aar/com.android.support/support-media-compat/25.1.1/jars/classes.jar"
         jumboMode="false"
+        optimize="true"
         revision="20.0.0"
-        sha1="57f2ab85c164ff1676ec64dee787981c046fab79">
-        <dex dex="/Users/mcroghan/Studio/personal/WhatCounts/app/build/intermediates/pre-dexed/debug/internal_impl-22.2.0-95fc4677f80ad10d9013a549936175da01be1e89.jar" />
+        sha1="7bde4c34162092e0a77e7f12dc85ed77c484cf5c">
+        <dex dex="/Users/mcroghan/Studio/personal/WhatCounts/app/build/intermediates/pre-dexed/debug/com.android.support-support-media-compat-25.1.1_490872ef7d629c5583365040a8eaffb7d9cc71a5.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/mcroghan/Studio/personal/WhatCounts/app/build/intermediates/exploded-aar/com.android.support/support-fragment/25.1.1/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="20.0.0"
+        sha1="e2719c102dca3a7a5b02ce07f769362da6ddb4ab">
+        <dex dex="/Users/mcroghan/Studio/personal/WhatCounts/app/build/intermediates/pre-dexed/debug/com.android.support-support-fragment-25.1.1_7976eae75ce557a10f5d74c6230dcfc9014491b7.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/mcroghan/Studio/personal/WhatCounts/app/build/intermediates/exploded-aar/com.android.support/support-v4/25.1.1/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="20.0.0"
+        sha1="d7c42c80f6509b9ea4db28ca7859ffae08ec5741">
+        <dex dex="/Users/mcroghan/Studio/personal/WhatCounts/app/build/intermediates/pre-dexed/debug/com.android.support-support-v4-25.1.1_9ef7e1a5e0a6ffed380bf7fff382e3c4625deeba.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/mcroghan/Studio/personal/WhatCounts/app/build/intermediates/exploded-aar/com.android.support/support-core-ui/25.1.1/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="20.0.0"
+        sha1="3e04ac8ca644ea7baddf6fdcf72e15c79e9df94a">
+        <dex dex="/Users/mcroghan/Studio/personal/WhatCounts/app/build/intermediates/pre-dexed/debug/com.android.support-support-core-ui-25.1.1_4141fa4f4eb70859799d137080c8edc85a46911d.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/mcroghan/Studio/personal/WhatCounts/app/build/intermediates/exploded-aar/com.android.support/support-compat/25.1.1/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="20.0.0"
+        sha1="02741d05d4b697fba5e279e9881aaa1da0ca7c7f">
+        <dex dex="/Users/mcroghan/Studio/personal/WhatCounts/app/build/intermediates/pre-dexed/debug/com.android.support-support-compat-25.1.1_70bcaeea93ddbe4bf09ad068e09c87de04d01fea.jar" />
     </item>
 
 </items>

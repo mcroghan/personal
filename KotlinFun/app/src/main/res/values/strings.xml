@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">KotlinFun</string>
+    <string name="english_words_will_appear_here">English words will appear here!</string>
+    <string name="tyep_a_non_negative_integer_here">Type a non-negative integer here</string>
+</resources>
