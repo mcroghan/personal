@@ -30,27 +30,26 @@ class MainActivity : AppCompatActivity() {
     private fun String.collapseSpaces() = this.replace("""\s+""".toRegex(), " ")
 
     private fun Int.toEnglish(): String = when(this.toString().length) {
-        // max int is 2,147,483,647
               1 -> this.digitToEnglish()
               2 -> this.tensToEnglish()
               3 -> this.hundredsToEnglish().collapseSpaces()
         in 4..6 -> this.thousandsToEnglish().collapseSpaces()
         in 7..9 -> this.millionsToEnglish().collapseSpaces()
-             10 -> this.billionsToEnglish().collapseSpaces()
-           else -> "ERROR"
+             10 -> this.billionsToEnglish().collapseSpaces() // max int is 2,147,483,647
+        else -> "ERROR"
     }
 
     private fun Int.digitToEnglish(): String = when(this % 10) {
-        0 -> "zero"
-        1 -> "one"
-        2 -> "two"
-        3 -> "three"
-        4 -> "four"
-        5 -> "five"
-        6 -> "six"
-        7 -> "seven"
-        8 -> "eight"
-        9 -> "nine"
+           0 -> "zero"
+           1 -> "one"
+           2 -> "two"
+           3 -> "three"
+           4 -> "four"
+           5 -> "five"
+           6 -> "six"
+           7 -> "seven"
+           8 -> "eight"
+           9 -> "nine"
         else -> "ERROR"
     }
 
@@ -75,13 +74,11 @@ class MainActivity : AppCompatActivity() {
              70 -> "seventy"
              80 -> "eighty"
              90 -> "ninety"
-        in 21..29, in 31..39, in 41..49, in 51..59, in 61..69, in 71..79, in 81..89, in 91..99
-                -> (this - this % 10).tensToEnglish().plus(" ").plus(this.digitToEnglish())
+        in 21..29, in 31..39, in 41..49, in 51..59, in 61..69, in 71..79, in 81..89, in 91..99  -> (this - this % 10).tensToEnglish().plus(" ").plus(this.digitToEnglish())
            else -> "ERROR"
     }
 
-    private fun Int.magnitudeToEnglish(myMagnitude: Int, nextHigherMagnitude: Long, myName: String,
-                                       toSayMyMagnitude: Int.() -> String, toSayLowerMagnitudes: Int.() -> String): String {
+    private fun Int.magnitudeToEnglish(myMagnitude: Int, nextHigherMagnitude: Long, myName: String, toSayMyMagnitude: Int.() -> String, toSayLowerMagnitudes: Int.() -> String): String {
         val digitsICareAbout = (this % nextHigherMagnitude).toInt() // if it's billions, nextHigherMagnitude could be a Long
         val myMagnitudeDigits = (digitsICareAbout - digitsICareAbout % myMagnitude) / myMagnitude // strip off lower magnitudes for now
         val myMagnitudeEnglish = if (myMagnitudeDigits > 0) myMagnitudeDigits.toSayMyMagnitude().plus(" $myName ") else ""
