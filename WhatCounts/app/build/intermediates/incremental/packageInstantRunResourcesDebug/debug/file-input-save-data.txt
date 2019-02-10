@@ -1,0 +1,19 @@
+#Internal package file, do not edit.
+#Mon Jan 08 20:10:13 EST 2018
+1.base=/Users/mcroghan/Studio/personal/WhatCounts/app/build/intermediates/assets/debug
+2.path=whatcountspurple.jpg
+0.baseType=DIRECTORY
+3.baseType=DIRECTORY
+2.base=/Users/mcroghan/Studio/personal/WhatCounts/app/build/intermediates/assets/debug
+3.set=ASSET
+2.set=ASSET
+1.baseType=DIRECTORY
+3.path=web_hi_res_512.png
+count=4
+1.set=ASSET
+0.path=whatcounts.jpg
+3.base=/Users/mcroghan/Studio/personal/WhatCounts/app/build/intermediates/assets/debug
+0.set=ASSET
+0.base=/Users/mcroghan/Studio/personal/WhatCounts/app/build/intermediates/assets/debug
+2.baseType=DIRECTORY
+1.path=whatcountsdark.png

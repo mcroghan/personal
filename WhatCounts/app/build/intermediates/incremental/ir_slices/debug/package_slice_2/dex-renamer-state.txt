@@ -1,0 +1,4 @@
+#Tue Nov 20 14:03:12 EST 2018
+base.0=/Users/mcroghan/Studio/personal/WhatCounts/app/build/intermediates/transforms/dexMerger/debug/2
+path.0=classes.dex
+renamed.0=classes.dex
