@@ -1,9 +1,16 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:numberpicker/numberpicker.dart';
 import 'package:what_counts/resources.dart';
+import 'globals.dart';
 
+void main() => start();
 
-void main() => runApp(WhatCounts());
+Future start() async {
+  await App.init();
+  runApp(WhatCounts());
+}
 
 class WhatCounts extends StatefulWidget {
   WhatCounts({Key key, this.title}) : super(key: key);
@@ -15,11 +22,12 @@ class WhatCounts extends StatefulWidget {
 }
 
 class _WhatCountsState extends State<WhatCounts> {
-  int _numCounters = 0;
+  int _numCounters = App.localStorage.getInt(Strings.num_counters_key) ?? 0;
 
   void _addCounter() {
     setState(() {
       _numCounters++;
+      App.localStorage.setInt(Strings.num_counters_key, _numCounters);
       build(context);
     });
   }
@@ -66,7 +74,7 @@ class _WhatCountsState extends State<WhatCounts> {
             onPressed: _addCounter,
             tooltip: 'Add a new counter',
             child: Icon(Icons.add),
-          ), // This trailing comma makes auto-formatting nicer for build methods.
+          ),
         ),
       ),
     );
