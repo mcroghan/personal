@@ -1,15 +1,16 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
-import 'package:numberpicker/numberpicker.dart';
-import 'package:what_counts/resources.dart';
+
+import 'resources.dart';
 import 'globals.dart';
+import 'counter.dart';
 
 void main() => start();
 
 Future start() async {
   await App.init();
-  runApp(WhatCounts());
+  runApp(WhatCounts(title: Strings.app_title));
 }
 
 class WhatCounts extends StatefulWidget {
@@ -27,9 +28,10 @@ class _WhatCountsState extends State<WhatCounts> {
   void _addCounter() {
     setState(() {
       _numCounters++;
-      App.localStorage.setInt(Strings.num_counters_key, _numCounters);
-      build(context);
     });
+
+    App.localStorage.setInt(Strings.num_counters_key, _numCounters);
+    build(context);
   }
 
   @override
@@ -57,14 +59,7 @@ class _WhatCountsState extends State<WhatCounts> {
               GridView.count(
                 crossAxisCount: 2,
                 children: List.generate(_numCounters, (index) {
-                  return Center(
-                    child: new NumberPicker.integer(
-                      initialValue: 0,
-                      minValue: 0,
-                      maxValue: 20,
-                      onChanged: null,
-                    ),
-                  );
+                  return new Counter(title: "NewCounter$index");
                 })
               ),
               Icon(Icons.show_chart),
