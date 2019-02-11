@@ -35,7 +35,9 @@ class _CounterState extends State<Counter> {
   Widget build(BuildContext context) {
     return Column(
         children: <Widget>[
-          Text(_title),
+          Padding(padding: EdgeInsets.fromLTRB(0.0, 10.0, 0.0, 10.0),
+            child: Text(_title, style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20.0))
+          ),
           NumberPicker.integer(
             initialValue: App.localStorage.getInt(buildCounterKey(_title)) ?? 0,
             minValue: 0,
