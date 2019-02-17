@@ -1,6 +1,8 @@
 class Strings {
-  static String app_title = "WhatCounts";
+  static String appTitle = "WhatCounts";
 
-  static String num_counters_key = "num_counters";
-  static String counter_title_key = "counter_title";
+  static String numCountersKey = "num_counters";
+  static String counterTitleKey = "counter_title";
+
+  static String addCounterHint = "Please enter a counter name";
 }

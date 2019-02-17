@@ -10,65 +10,94 @@ void main() => start();
 
 Future start() async {
   await App.init();
-  runApp(WhatCounts(title: Strings.app_title));
+  runApp(WhatCounts(title: Strings.appTitle));
 }
 
-class WhatCounts extends StatefulWidget {
+class WhatCounts extends StatelessWidget {
   WhatCounts({Key key, this.title}) : super(key: key);
 
   final String title;
 
-  @override
-  _WhatCountsState createState() => _WhatCountsState();
+  Widget build(BuildContext context) {
+    return MaterialApp(
+        title: Strings.appTitle,
+        theme: ThemeData(
+          primarySwatch: Colors.purple,
+        ),
+        debugShowCheckedModeBanner: false,
+        home: Home()
+    );
+  }
 }
 
-class _WhatCountsState extends State<WhatCounts> {
-  int _numCounters = App.localStorage.getInt(Strings.num_counters_key) ?? 0;
+class Home extends StatefulWidget {
+  @override
+  _HomeState createState() => _HomeState();
+}
 
-  void _addCounter() {
-    setState(() {
-      _numCounters++;
-    });
+class _HomeState extends State<Home> {
+  int _numCounters = App.localStorage.getInt(Strings.numCountersKey) ?? 0;
 
-    App.localStorage.setInt(Strings.num_counters_key, _numCounters);
+  String buildCounterTitle(int counterIndex) {
+    return "${Strings.counterTitleKey}$counterIndex";
+  }
+
+  void _addCounter(String title) async {
+    setState(() => _numCounters++);
+
+    App.localStorage.setInt(Strings.numCountersKey, _numCounters);
+    App.localStorage.setString(buildCounterTitle(_numCounters - 1), title);
     build(context);
+  }
+
+  void showAddCounterDialog({ child: Widget }) {
+    showDialog<String>(
+      context: context,
+      builder: (context) => child
+    ).then<void>((String title) => _addCounter(title));
   }
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: Strings.app_title,
-      theme: ThemeData(
-        primarySwatch: Colors.purple,
-      ),
-      debugShowCheckedModeBanner: false,
-      home:  DefaultTabController(
-        length: 2,
-        child: Scaffold(
-          appBar: AppBar(
-            bottom: TabBar(
-              tabs: [
-                Tab(icon: Icon(Icons.plus_one)),
-                Tab(icon: Icon(Icons.show_chart)),
-              ],
-            ),
-            title: Text(Strings.app_title),
-          ),
-          body: TabBarView(
-            children: <Widget>[
-              GridView.count(
-                crossAxisCount: 2,
-                children: List.generate(_numCounters, (index) {
-                  return new Counter(title: "NewCounter$index");
-                })
-              ),
-              Icon(Icons.show_chart),
+    return DefaultTabController(
+      length: 2,
+      child: Scaffold(
+        appBar: AppBar(
+          bottom: TabBar(
+            tabs: [
+              Tab(icon: Icon(Icons.plus_one)),
+              Tab(icon: Icon(Icons.show_chart)),
             ],
           ),
-          floatingActionButton: FloatingActionButton(
-            onPressed: _addCounter,
-            tooltip: 'Add a new counter',
-            child: Icon(Icons.add),
+          title: Text(Strings.appTitle),
+        ),
+        body: TabBarView(
+          children: <Widget>[
+            GridView.count(
+              crossAxisCount: 2,
+              children: List.generate(_numCounters, (index) {
+                return Counter(
+                    title: App.localStorage.getString(buildCounterTitle(index)),
+                );
+              })
+            ),
+            Icon(Icons.show_chart),
+          ],
+        ),
+        floatingActionButton: FloatingActionButton(
+          tooltip: 'Add a new counter',
+          child: Icon(Icons.add),
+          onPressed: () => showAddCounterDialog(
+            child: Dialog(
+                child: TextField(
+                  autofocus: true,
+                  decoration: InputDecoration(
+                    border: OutlineInputBorder(),
+                    hintText: Strings.addCounterHint,
+                  ),
+                  onSubmitted: (newValue) => Navigator.pop(context, newValue),
+                )
+            ),
           ),
         ),
       ),

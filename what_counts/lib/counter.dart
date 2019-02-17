@@ -18,31 +18,37 @@ String scrubTitle(String unscrubbed) {
 }
 
 String buildCounterKey(String counterTitle) {
-  return Strings.counter_title_key + "_" + scrubTitle(counterTitle);
+  return Strings.counterTitleKey + "_" + scrubTitle(counterTitle);
 }
 
 class _CounterState extends State<Counter> {
   _CounterState(this._title);
 
+  int _currentValue = 0;
+
   final String _title;
 
-  void _setCounter(int newValue) {
+  void _setCounter(int newValue, bool rebuild) async {
+    setState(() => _currentValue = newValue);
+
     App.localStorage.setInt(buildCounterKey(_title), newValue);
-    build(context);
+    if (rebuild) build(context);
   }
 
   @override
   Widget build(BuildContext context) {
+    _setCounter(App.localStorage.getInt(buildCounterKey(_title)) ?? 0, false);
+
     return Column(
         children: <Widget>[
           Padding(padding: EdgeInsets.fromLTRB(0.0, 10.0, 0.0, 10.0),
             child: Text(_title, style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20.0))
           ),
           NumberPicker.integer(
-            initialValue: App.localStorage.getInt(buildCounterKey(_title)) ?? 0,
+            initialValue: _currentValue,
             minValue: 0,
             maxValue: 20,
-            onChanged: (newValue) => _setCounter(newValue),
+            onChanged: (newValue) => _setCounter(newValue, true),
           ),
         ]
     );
