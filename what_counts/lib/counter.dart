@@ -32,7 +32,7 @@ class _CounterState extends State<Counter> {
     });
   }
 
-  void _setCounter(int newValue) async {
+  void _saveCounterState(int newValue) async {
     _setCounterState(newValue);
 
     App.localStorage.setInt(buildCounterKey(_title), newValue);
@@ -62,7 +62,7 @@ class _CounterState extends State<Counter> {
             initialValue: _currentValue,
             minValue: 0,
             maxValue: 20,
-            onChanged: (newValue) => _setCounter(newValue),
+            onChanged: (newValue) => _saveCounterState(newValue),
           ),
         ]
     );
