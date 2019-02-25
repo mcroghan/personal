@@ -36,25 +36,18 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
-  int _numCounters = App.localStorage.getInt(Strings.numCountersKey) ?? 0;
+  RegExp _validationRegEx = new RegExp(r"^[a-zA-Z0-9 ]{1,10}$");
+  bool _isTitleValid = true;
 
-  String buildCounterTitle(int counterIndex) {
-    return "${Strings.counterTitleKey}$counterIndex";
-  }
+  List<String> _counters = App.localStorage.getStringList(Strings.counterDataKey) ?? new List();
 
-  void _addCounter(String title) async {
-    setState(() => _numCounters++);
+  void deleteCounter(BuildContext context, String counterName) {
+    setState(() {
+      _counters.remove(counterName);
+    });
 
-    App.localStorage.setInt(Strings.numCountersKey, _numCounters);
-    App.localStorage.setString(buildCounterTitle(_numCounters - 1), title);
+    App.localStorage.setStringList(Strings.counterDataKey, _counters);
     build(context);
-  }
-
-  void showAddCounterDialog({ child: Widget }) {
-    showDialog<String>(
-      context: context,
-      builder: (context) => child
-    ).then<void>((String title) => _addCounter(title));
   }
 
   @override
@@ -75,9 +68,10 @@ class _HomeState extends State<Home> {
           children: <Widget>[
             GridView.count(
               crossAxisCount: 2,
-              children: List.generate(_numCounters, (index) {
+              children: List.generate(_counters.length, (index) {
                 return Counter(
-                    title: App.localStorage.getString(buildCounterTitle(index)),
+                  title: _counters[index],
+                  deleteCounterCallback: deleteCounter,
                 );
               })
             ),
@@ -87,16 +81,33 @@ class _HomeState extends State<Home> {
         floatingActionButton: FloatingActionButton(
           tooltip: 'Add a new counter',
           child: Icon(Icons.add),
-          onPressed: () => showAddCounterDialog(
-            child: Dialog(
-                child: TextField(
-                  autofocus: true,
-                  decoration: InputDecoration(
-                    border: OutlineInputBorder(),
-                    hintText: Strings.addCounterHint,
-                  ),
-                  onSubmitted: (newValue) => Navigator.pop(context, newValue),
-                )
+          onPressed: () => showDialog<String>(
+            context: context,
+            builder: (context) => Dialog(
+              child: TextField(
+                autofocus: true,
+                decoration: InputDecoration(
+                  border: OutlineInputBorder(),
+                  hintText: "Please enter a counter name",
+                  errorText: _isTitleValid ? null : "Names must be 1-10 letters/numbers/spaces, and unique",
+                ),
+                onSubmitted: (newValue) {
+                  setState(() {
+                    _isTitleValid = !_counters.contains(newValue) && _validationRegEx.hasMatch(newValue);
+                  });
+
+                  if (_isTitleValid) {
+                    Navigator.pop(context, newValue);
+                    
+                    setState(() {
+                      _counters.add(newValue);
+                    });
+
+                    App.localStorage.setStringList(Strings.counterDataKey, _counters);
+                    build(context);
+                  }
+                }
+              )
             ),
           ),
         ),
