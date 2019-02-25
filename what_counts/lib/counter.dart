@@ -49,7 +49,7 @@ class _CounterState extends State<Counter> {
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget> [
-              Padding(padding: EdgeInsets.fromLTRB(0.0, 10.0, 0.0, 10.0),
+              Padding(padding: EdgeInsets.symmetric(vertical: 10.0),
                   child: Text(_title, style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20.0))
               ),
               IconButton(

@@ -37,7 +37,7 @@ class Home extends StatefulWidget {
 
 class _HomeState extends State<Home> {
   RegExp _validationRegEx = new RegExp(r"^[a-zA-Z0-9 ]{1,10}$");
-  bool _isTitleValid = true;
+  bool _isCounterNameValid = true;
 
   List<String> _counters = App.localStorage.getStringList(Strings.counterDataKey) ?? new List();
 
@@ -48,6 +48,23 @@ class _HomeState extends State<Home> {
 
     App.localStorage.setStringList(Strings.counterDataKey, _counters);
     build(context);
+  }
+
+  void addCounter(BuildContext context, String submittedCounterName) {
+    setState(() {
+      _isCounterNameValid = !_counters.contains(submittedCounterName) && _validationRegEx.hasMatch(submittedCounterName);
+    });
+
+    if (_isCounterNameValid) {
+      Navigator.pop(context, submittedCounterName);
+
+      setState(() {
+        _counters.add(submittedCounterName);
+      });
+
+      App.localStorage.setStringList(Strings.counterDataKey, _counters);
+      build(context);
+    }
   }
 
   @override
@@ -76,7 +93,14 @@ class _HomeState extends State<Home> {
                 );
               })
             ),
-            Icon(Icons.show_chart),
+            ListView(
+                children: List.generate(14, (index) { // two weeks history
+                  return Padding(
+                    padding: EdgeInsets.symmetric(vertical: 10.0),
+                    child: Icon(Icons.show_chart),
+                  );
+              })
+            ),
           ],
         ),
         floatingActionButton: FloatingActionButton(
@@ -90,24 +114,9 @@ class _HomeState extends State<Home> {
                 decoration: InputDecoration(
                   border: OutlineInputBorder(),
                   hintText: "Please enter a counter name",
-                  errorText: _isTitleValid ? null : "Names must be 1-10 letters/numbers/spaces, and unique",
+                  errorText: _isCounterNameValid ? null : "Names must be 1-10 letters/numbers/spaces, and unique",
                 ),
-                onSubmitted: (newValue) {
-                  setState(() {
-                    _isTitleValid = !_counters.contains(newValue) && _validationRegEx.hasMatch(newValue);
-                  });
-
-                  if (_isTitleValid) {
-                    Navigator.pop(context, newValue);
-
-                    setState(() {
-                      _counters.add(newValue);
-                    });
-
-                    App.localStorage.setStringList(Strings.counterDataKey, _counters);
-                    build(context);
-                  }
-                }
+                onSubmitted: (submittedCounterName) => addCounter(context, submittedCounterName),
               )
             ),
           ),
