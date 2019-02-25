@@ -2,7 +2,6 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 
-import 'resources.dart';
 import 'globals.dart';
 import 'counter.dart';
 

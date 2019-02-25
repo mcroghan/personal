@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:numberpicker/numberpicker.dart';
 
-import 'resources.dart';
 import 'globals.dart';
 
 class Counter extends StatefulWidget {
@@ -12,10 +11,6 @@ class Counter extends StatefulWidget {
 
   @override
   _CounterState createState() => _CounterState(title, deleteCounterCallback);
-}
-
-String buildCounterKey(String counterTitle) {
-  return Strings.counterCountKey + "_" + counterTitle;
 }
 
 class _CounterState extends State<Counter> {
@@ -35,13 +30,13 @@ class _CounterState extends State<Counter> {
   void _saveCounterState(int newValue) async {
     _setCounterState(newValue);
 
-    App.localStorage.setInt(buildCounterKey(_title), newValue);
+    App.localStorage.setInt(Util.buildCounterKey(_title), newValue);
     build(context);
   }
 
   @override
   Widget build(BuildContext context) {
-    _setCounterState(App.localStorage.getInt(buildCounterKey(_title)) ?? 0);
+    _setCounterState(App.localStorage.getInt(Util.buildCounterKey(_title)) ?? 0);
 
     return Column(
         mainAxisAlignment: MainAxisAlignment.center,

@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:numberpicker/numberpicker.dart';
 
-import 'resources.dart';
 import 'globals.dart';
 
 class Graph extends StatefulWidget {
