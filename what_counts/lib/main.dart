@@ -71,6 +71,7 @@ class _HomeState extends State<Home> {
               children: List.generate(_counters.length, (index) {
                 return Counter(
                   title: _counters[index],
+                  key: Key(_counters[index]),
                   deleteCounterCallback: deleteCounter,
                 );
               })
@@ -98,7 +99,7 @@ class _HomeState extends State<Home> {
 
                   if (_isTitleValid) {
                     Navigator.pop(context, newValue);
-                    
+
                     setState(() {
                       _counters.add(newValue);
                     });

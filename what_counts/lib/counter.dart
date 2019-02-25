@@ -5,7 +5,7 @@ import 'resources.dart';
 import 'globals.dart';
 
 class Counter extends StatefulWidget {
-  Counter({Key key, this.title, this.deleteCounterCallback}) : super(key: key);
+  Counter({ Key key, this.title, this.deleteCounterCallback }) : super(key: key);
 
   final String title;
   final Function deleteCounterCallback;
