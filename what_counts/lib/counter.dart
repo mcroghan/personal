@@ -26,16 +26,22 @@ class _CounterState extends State<Counter> {
 
   int _currentValue = 0;
 
-  void _setCounter(int newValue, bool rebuild) async {
-    setState(() => _currentValue = newValue);
+  void _setCounterState(int newValue) {
+    setState(() {
+      _currentValue = newValue;
+    });
+  }
+
+  void _setCounter(int newValue) async {
+    _setCounterState(newValue);
 
     App.localStorage.setInt(buildCounterKey(_title), newValue);
-    if (rebuild) build(context);
+    build(context);
   }
 
   @override
   Widget build(BuildContext context) {
-    _setCounter(App.localStorage.getInt(buildCounterKey(_title)) ?? 0, false);
+    _setCounterState(App.localStorage.getInt(buildCounterKey(_title)) ?? 0);
 
     return Column(
         mainAxisAlignment: MainAxisAlignment.center,
@@ -56,7 +62,7 @@ class _CounterState extends State<Counter> {
             initialValue: _currentValue,
             minValue: 0,
             maxValue: 20,
-            onChanged: (newValue) => _setCounter(newValue, true),
+            onChanged: (newValue) => _setCounter(newValue),
           ),
         ]
     );
