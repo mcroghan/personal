@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 
 import 'globals.dart';
 import 'counter.dart';
+import 'graph.dart';
 
 void main() => start();
 
@@ -35,6 +36,7 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
+  static const int history_days = 14;
   RegExp _validationRegEx = new RegExp(r"^[a-zA-Z0-9 ]{1,10}$");
   bool _isCounterNameValid = true;
 
@@ -75,7 +77,7 @@ class _HomeState extends State<Home> {
           bottom: TabBar(
             tabs: [
               Tab(icon: Icon(Icons.plus_one)),
-              Tab(icon: Icon(Icons.show_chart)),
+              Tab(icon: Icon(Icons.insert_chart)),
             ],
           ),
           title: Text(Strings.appTitle),
@@ -85,19 +87,25 @@ class _HomeState extends State<Home> {
             GridView.count(
               crossAxisCount: 2,
               children: List.generate(_counters.length, (index) {
+                String title = _counters[index];
                 return Counter(
-                  title: _counters[index],
-                  key: Key(_counters[index]),
+                  title: title,
+                  key: Key(title),
                   deleteCounterCallback: deleteCounter,
                 );
               })
             ),
             ListView(
-                children: List.generate(14, (index) { // two weeks history
-                  return Padding(
-                    padding: EdgeInsets.symmetric(vertical: 10.0),
-                    child: Icon(Icons.show_chart),
-                  );
+              children: List.generate(history_days, (index) {
+                Duration days = Duration(days: -(history_days - index - 1));
+                String title = Util.formatDateTime(DateTime.now().add(days));
+                return Padding(
+                  padding: EdgeInsets.symmetric(vertical: 10.0),
+                  child: Graph(
+                    title: title,
+                    key: Key(title),
+                  )
+                );
               })
             ),
           ],

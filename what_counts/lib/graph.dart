@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 
-import 'globals.dart';
-
 class Graph extends StatefulWidget {
   Graph({ Key key, this.title }) : super(key: key);
 
@@ -18,6 +16,13 @@ class _GraphState extends State<Graph> {
 
   @override
   Widget build(BuildContext context) {
-    return Column();
+    return Column(
+      children: <Widget>[
+        Padding(padding: EdgeInsets.symmetric(vertical: 10.0),
+            child: Text(_title, style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20.0))
+        ),
+        Icon(Icons.insert_chart)
+      ],
+    );
   }
 }

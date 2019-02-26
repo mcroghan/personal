@@ -8,8 +8,12 @@ class App {
 }
 
 class Util {
+  static String formatDateTime(DateTime dateTime) {
+    return dateTime.toIso8601String().substring(0, 10);
+  }
+
   static String buildCounterKey(String counterTitle) {
-    return Strings.counterCountKey + "_" + counterTitle + "_" + new DateTime.now().toIso8601String().substring(0,9);
+    return Strings.counterCountKey + "_" + counterTitle + "_" + formatDateTime(new DateTime.now());
   }
 }
 
