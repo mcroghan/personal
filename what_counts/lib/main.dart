@@ -23,6 +23,12 @@ class WhatCounts extends StatelessWidget {
         title: Strings.appTitle,
         theme: ThemeData(
           primarySwatch: Colors.purple,
+          textTheme: TextTheme(
+            headline: TextStyle(
+              fontWeight: FontWeight.bold,
+              fontSize: 20.0
+            )
+          )
         ),
         debugShowCheckedModeBanner: false,
         home: Home()
@@ -40,7 +46,9 @@ class _HomeState extends State<Home> {
   RegExp _validationRegEx = new RegExp(r"^[a-zA-Z0-9 ]{1,10}$");
   bool _isCounterNameValid = true;
 
-  List<String> _counters = App.localStorage.getStringList(Strings.counterDataKey) ?? new List();
+  List<String> _counters =
+      App.localStorage.getStringList(Strings.counterDataKey)
+      ?? new List();
 
   void deleteCounter(BuildContext context, String counterName) {
     setState(() {
@@ -53,7 +61,9 @@ class _HomeState extends State<Home> {
 
   void addCounter(BuildContext context, String submittedCounterName) {
     setState(() {
-      _isCounterNameValid = !_counters.contains(submittedCounterName) && _validationRegEx.hasMatch(submittedCounterName);
+      _isCounterNameValid =
+          !_counters.contains(submittedCounterName)
+          && _validationRegEx.hasMatch(submittedCounterName);
     });
 
     if (_isCounterNameValid) {
@@ -121,7 +131,9 @@ class _HomeState extends State<Home> {
                 decoration: InputDecoration(
                   border: OutlineInputBorder(),
                   hintText: "Please enter a counter name",
-                  errorText: _isCounterNameValid ? null : "Names must be 1-10 letters/numbers/spaces, and unique",
+                  errorText: _isCounterNameValid
+                      ? null
+                      : "Names must be 1-10 letters/numbers/spaces, and unique",
                 ),
                 onSubmitted: (submittedCounterName) => addCounter(context, submittedCounterName),
               )

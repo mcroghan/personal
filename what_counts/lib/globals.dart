@@ -13,7 +13,11 @@ class Util {
   }
 
   static String buildCounterKey(String counterTitle) {
-    return Strings.counterCountKey + "_" + counterTitle + "_" + formatDateTime(new DateTime.now());
+    return Strings.counterCountKey
+        + "_"
+        + counterTitle
+        + "_"
+        + formatDateTime(new DateTime.now());
   }
 }
 

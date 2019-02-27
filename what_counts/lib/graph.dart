@@ -19,7 +19,7 @@ class _GraphState extends State<Graph> {
     return Column(
       children: <Widget>[
         Padding(padding: EdgeInsets.symmetric(vertical: 10.0),
-            child: Text(_title, style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20.0))
+            child: Text(_title, style: Theme.of(context).textTheme.headline)
         ),
         Icon(Icons.insert_chart)
       ],
