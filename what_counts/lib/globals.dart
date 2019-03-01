@@ -12,12 +12,12 @@ class Util {
     return dateTime.toIso8601String().substring(0, 10);
   }
 
-  static String buildCounterKey(String counterTitle) {
+  static String buildCounterKey(String counterTitle, { String dateString }) {
     return Strings.counterCountKey
         + "_"
         + counterTitle
         + "_"
-        + formatDateTime(new DateTime.now());
+        + (dateString ?? formatDateTime(DateTime.now()));
   }
 }
 
@@ -26,4 +26,18 @@ class Strings {
 
   static String counterDataKey = "counter_data";
   static String counterCountKey = "counter_count";
+}
+
+class Counters {
+  static final Counters _singleton = Counters._internal();
+
+  List<String> list;
+
+  factory Counters() {
+    return _singleton;
+  }
+
+  Counters._internal() {
+    list = App.localStorage.getStringList(Strings.counterDataKey) ?? List();
+  }
 }
