@@ -26,6 +26,7 @@ class Strings {
 
   static String counterDataKey = "counter_data";
   static String counterCountKey = "counter_count";
+  static String countersDateKey = "counters_date";
 }
 
 class Counters {
@@ -33,9 +34,8 @@ class Counters {
 
   List<String> list;
 
-  factory Counters() {
-    return _singleton;
-  }
+  factory Counters() => _singleton;
+
 
   Counters._internal() {
     list = App.localStorage.getStringList(Strings.counterDataKey) ?? List();

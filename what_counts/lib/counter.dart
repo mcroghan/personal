@@ -4,19 +4,21 @@ import 'package:numberpicker/numberpicker.dart';
 import 'globals.dart';
 
 class Counter extends StatefulWidget {
-  Counter({ Key key, this.title, this.deleteCounterCallback }) : super(key: key);
+  Counter({ Key key, this.title, this.dateString, this.deleteCounterCallback }) : super(key: key);
 
   final String title;
+  final String dateString;
   final Function deleteCounterCallback;
 
   @override
-  _CounterState createState() => _CounterState(title, deleteCounterCallback);
+  _CounterState createState() => _CounterState(title, dateString, deleteCounterCallback);
 }
 
 class _CounterState extends State<Counter> {
-  _CounterState(this._title, this._deleteCounterCallback);
+  _CounterState(this._title, this._dateString, this._deleteCounterCallback);
 
   final String _title;
+  final String _dateString;
   final Function _deleteCounterCallback;
 
   int _currentValue = 0;
@@ -30,13 +32,13 @@ class _CounterState extends State<Counter> {
   void _saveCounterState(int newValue) async {
     _setCounterState(newValue);
 
-    App.localStorage.setInt(Util.buildCounterKey(_title), newValue);
+    App.localStorage.setInt(Util.buildCounterKey(_title, dateString: _dateString), newValue);
     build(context);
   }
 
   @override
   Widget build(BuildContext context) {
-    _setCounterState(App.localStorage.getInt(Util.buildCounterKey(_title)) ?? 0);
+    _setCounterState(App.localStorage.getInt(Util.buildCounterKey(_title, dateString: _dateString)) ?? 0);
 
     return Column(
         mainAxisAlignment: MainAxisAlignment.center,

@@ -22,7 +22,7 @@ class WhatCounts extends StatelessWidget {
     return MaterialApp(
         title: Strings.appTitle,
         theme: ThemeData(
-          primarySwatch: Colors.purple,
+          primarySwatch: Colors.deepPurple,
           textTheme: TextTheme(
             headline: TextStyle(
               fontWeight: FontWeight.bold,
@@ -42,24 +42,32 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
-  static const int history_days = 14;
-  RegExp _validationRegEx = RegExp(r"^[a-zA-Z0-9 ]{1,10}$");
+  static const int historyDays = 14;
+
+  static const int countersTab = 0;
+  static const int graphsTab = 1;
+
+  static RegExp _validationRegEx = RegExp(r"^[a-zA-Z0-9 ]{1,10}$");
+
   bool _isCounterNameValid = true;
 
   Counters _counters = Counters();
+  String _countersDateString = Util.formatDateTime(DateTime.now());
   TabController _tabController;
   ScrollController _graphScrollController = ScrollController();
 
   @override
   void initState() {
     super.initState();
+    
     _tabController = TabController(vsync: this, length: 2);
+    
     _tabController.addListener(() {
-      if (_tabController.index == 1) {
-        _graphScrollController.animateTo(_graphScrollController.position.maxScrollExtent,
-          curve: Curves.ease,
-          duration: Duration(seconds: 1),
-        );
+      switch (_tabController.index) {
+        case graphsTab:
+          _graphScrollController.jumpTo(_graphScrollController.position.maxScrollExtent);
+          break;
+        default:
       }
     });
   }
@@ -98,6 +106,16 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
     }
   }
 
+  void switchToCountersTab(BuildContext context, String countersDateString) {
+    setState(() {
+      _countersDateString = countersDateString;
+    });
+
+    App.localStorage.setString(Strings.countersDateKey, countersDateString);
+    _tabController.animateTo(countersTab);
+    build(context);
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -114,26 +132,38 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
       body: TabBarView(
         controller: _tabController,
         children: <Widget>[
-          GridView.count(
-            crossAxisCount: 2,
-            children: List.generate(_counters.list.length, (index) {
-              String title = _counters.list[index];
-              return Counter(
-                title: title,
-                key: Key(title),
-                deleteCounterCallback: deleteCounter,
-              );
-            })
+          Column(
+            children: <Widget>[
+              Padding(
+                  padding: EdgeInsets.symmetric(vertical: 20.0),
+                  child: Text(_countersDateString, style: Theme.of(context).textTheme.headline)
+              ),
+              Expanded(
+                child: GridView.count(
+                  crossAxisCount: 2,
+                  children: List.generate(_counters.list.length, (index) {
+                    String title = _counters.list[index];
+                    return Counter(
+                      title: title,
+                      dateString: _countersDateString,
+                      key: Key(title),
+                      deleteCounterCallback: deleteCounter,
+                    );
+                  })
+                )
+              )
+            ]
           ),
           ListView(
             controller: _graphScrollController,
-            children: List.generate(history_days, (index) {
-              Duration days = Duration(days: -(history_days - index - 1));
+            children: List.generate(historyDays, (index) {
+              Duration days = Duration(days: -(historyDays - index - 1));
               String title = Util.formatDateTime(DateTime.now().add(days));
               return Padding(
                 padding: EdgeInsets.symmetric(vertical: 10.0),
                 child: Graph(
                   title: title,
+                  switchToCountersTabCallback: switchToCountersTab,
                   key: Key(title),
                 )
               );
