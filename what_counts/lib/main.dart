@@ -53,6 +53,7 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
 
   Counters _counters = Counters();
   String _countersDateString = Util.formatDateTime(DateTime.now());
+  bool _fabVisible = true;
   TabController _tabController;
   ScrollController _graphScrollController = ScrollController();
 
@@ -64,11 +65,24 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
     
     _tabController.addListener(() {
       switch (_tabController.index) {
+        case countersTab:
+          setState(() {
+            _fabVisible = true;
+          });
+
+          break;
         case graphsTab:
+          setState(() {
+            _fabVisible = false;
+          });
+
           _graphScrollController.jumpTo(_graphScrollController.position.maxScrollExtent);
+          
           break;
         default:
       }
+
+      build(context);
     });
   }
 
@@ -171,26 +185,29 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
           ),
         ],
       ),
-      floatingActionButton: FloatingActionButton(
-        tooltip: 'Add a new counter',
-        child: Icon(Icons.add),
-        onPressed: () => showDialog<String>(
-          context: context,
-          builder: (context) => Dialog(
-            child: TextField(
-              autofocus: true,
-              decoration: InputDecoration(
-                border: OutlineInputBorder(),
-                hintText: "Please enter a counter name",
-                errorText: _isCounterNameValid
-                    ? null
-                    : "Names must be 1-10 letters/numbers/spaces, and unique",
-              ),
-              onSubmitted: (submittedCounterName) => addCounter(context, submittedCounterName),
-            )
+      floatingActionButton: Offstage(
+        offstage: !_fabVisible,
+        child: FloatingActionButton(
+          tooltip: 'Add a new counter',
+          child: Icon(Icons.add),
+          onPressed: () => showDialog<String>(
+            context: context,
+            builder: (context) => Dialog(
+              child: TextField(
+                autofocus: true,
+                decoration: InputDecoration(
+                  border: OutlineInputBorder(),
+                  hintText: "Please enter a counter name",
+                  errorText: _isCounterNameValid
+                      ? null
+                      : "Names must be 1-10 letters/numbers/spaces, and unique",
+                ),
+                onSubmitted: (submittedCounterName) => addCounter(context, submittedCounterName),
+              )
+            ),
           ),
         ),
-      ),
+      )
     );
   }
 }
