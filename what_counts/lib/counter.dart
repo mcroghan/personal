@@ -59,7 +59,7 @@ class _CounterState extends State<Counter> {
           NumberPicker.integer(
             initialValue: _currentValue,
             minValue: 0,
-            maxValue: 20,
+            maxValue: Ints.maxCounterValue,
             onChanged: (newValue) => _saveCounterState(newValue),
           ),
         ]

@@ -22,7 +22,7 @@ class WhatCounts extends StatelessWidget {
     return MaterialApp(
         title: Strings.appTitle,
         theme: ThemeData(
-          primarySwatch: Colors.deepPurple,
+          primarySwatch: Hues.primarySwatch,
           textTheme: TextTheme(
             headline: TextStyle(
               fontWeight: FontWeight.bold,
@@ -52,7 +52,7 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
   bool _isCounterNameValid = true;
 
   Counters _counters = Counters();
-  String _countersDateString = Util.formatDateTime(DateTime.now());
+  String _countersDateString = Util.formatDateTimeForMachines(DateTime.now());
   bool _fabVisible = true;
   TabController _tabController;
   ScrollController _graphScrollController = ScrollController();
@@ -69,15 +69,16 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
           setState(() {
             _fabVisible = true;
           });
-
           break;
         case graphsTab:
           setState(() {
             _fabVisible = false;
           });
-
-          _graphScrollController.jumpTo(_graphScrollController.position.maxScrollExtent);
-          
+          _graphScrollController.animateTo(
+            _graphScrollController.position.maxScrollExtent,
+            curve: Curves.bounceIn,
+            duration: Duration(milliseconds: 500),
+          );
           break;
         default:
       }
@@ -95,6 +96,7 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
   void deleteCounter(BuildContext context, String counterName) {
     setState(() {
       _counters.list.remove(counterName);
+      _fabVisible = _counters.list.length < Ints.maxCounters;
     });
 
     App.localStorage.setStringList(Strings.counterDataKey, _counters.list);
@@ -113,6 +115,7 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
 
       setState(() {
         _counters.list.add(submittedCounterName);
+        _fabVisible = _counters.list.length < Ints.maxCounters;
       });
 
       App.localStorage.setStringList(Strings.counterDataKey, _counters.list);
@@ -150,7 +153,10 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
             children: <Widget>[
               Padding(
                   padding: EdgeInsets.symmetric(vertical: 20.0),
-                  child: Text(_countersDateString, style: Theme.of(context).textTheme.headline)
+                  child: Text(
+                      Util.formatDateStringForHumans(_countersDateString),
+                      style: Theme.of(context).textTheme.headline
+                  )
               ),
               Expanded(
                 child: GridView.count(
@@ -172,7 +178,7 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
             controller: _graphScrollController,
             children: List.generate(historyDays, (index) {
               Duration days = Duration(days: -(historyDays - index - 1));
-              String title = Util.formatDateTime(DateTime.now().add(days));
+              String title = Util.formatDateTimeForMachines(DateTime.now().add(days));
               return Padding(
                 padding: EdgeInsets.symmetric(vertical: 10.0),
                 child: Graph(
