@@ -95,7 +95,13 @@ class _GraphState extends State<Graph> {
               animate: true,
               vertical: false,
               barRendererDecorator: new charts.BarLabelDecorator<String>(),
+              domainAxis: new charts.OrdinalAxisSpec(
+                  showAxisLine: true,
+                  renderSpec: new charts.NoneRenderSpec()
+              ),
               primaryMeasureAxis: charts.NumericAxisSpec(
+                showAxisLine: true,
+                renderSpec: new charts.NoneRenderSpec(),
                 tickProviderSpec: charts.BasicNumericTickProviderSpec(
                   dataIsInWholeNumbers: true,
                   desiredTickCount: Ints.maxCounterValue + 1,
