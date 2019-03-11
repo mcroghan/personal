@@ -21,6 +21,8 @@ class WhatCounts extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
         title: Strings.appTitle,
+        debugShowCheckedModeBanner: false,
+        home: Home(),
         theme: ThemeData(
           primarySwatch: Hues.primarySwatch,
           textTheme: TextTheme(
@@ -30,8 +32,6 @@ class WhatCounts extends StatelessWidget {
             )
           )
         ),
-        debugShowCheckedModeBanner: false,
-        home: Home()
     );
   }
 }

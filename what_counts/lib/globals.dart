@@ -45,7 +45,7 @@ class Util {
 }
 
 class Strings {
-  static const String appTitle = "WhatCountsForYou";
+  static const String appTitle = "What Counts";
 
   static const String counterDataKey = "counter_data";
   static const String counterCountKey = "counter_count";
