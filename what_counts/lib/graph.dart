@@ -13,13 +13,13 @@ class Graph extends StatefulWidget {
   _GraphState createState() => _GraphState(title, switchToCountersTabCallback);
 }
 
-class CounterValue {
+class CounterData {
   final String counterName;
   final int value;
   final int maxValue;
   final charts.Color color;
 
-  CounterValue(this.counterName, this.value, this.maxValue, Color color)
+  CounterData(this.counterName, this.value, this.maxValue, Color color)
       : this.color = new charts.Color(
       r: color.red, g: color.green, b: color.blue, a: color.alpha);
 }
@@ -50,7 +50,7 @@ class _GraphState extends State<Graph> {
       String counterName = _counters.list[index];
       String counterKey = Util.buildCounterKey(counterName, dateString: _title);
       int counterValue = App.localStorage.getInt(counterKey) ?? 0;
-      return CounterValue(
+      return CounterData(
           counterName,
           counterValue,
           Ints.maxCounterValue,
@@ -60,10 +60,13 @@ class _GraphState extends State<Graph> {
 
     var series = [
       charts.Series(
-        domainFn: (CounterValue counterData, _) => counterData.counterName,
-        measureFn: (CounterValue counterData, _) => counterData.value,
-        measureUpperBoundFn: (CounterValue counterData, _) => counterData.maxValue,
-        colorFn: (CounterValue counterData, _) => counterData.color,
+        domainFn: (CounterData counterData, _) => counterData.counterName,
+        measureFn: (CounterData counterData, _) => counterData.value,
+        measureUpperBoundFn: (CounterData counterData, _) => counterData.maxValue,
+        labelAccessorFn: (CounterData counterData, _) => counterData.value.toString()
+            + " "
+            + counterData.counterName,
+        colorFn: (CounterData counterData, _) => counterData.color,
         id: 'Counters',
         data: data,
       ),
@@ -86,11 +89,12 @@ class _GraphState extends State<Graph> {
         Padding(
           padding: EdgeInsets.symmetric(horizontal: 10),
           child: SizedBox(
-            height: _counters.list.length * 20.0,
+            height: _counters.list.length * 30.0,
             child: charts.BarChart(
               series,
               animate: true,
               vertical: false,
+              barRendererDecorator: new charts.BarLabelDecorator<String>(),
               primaryMeasureAxis: charts.NumericAxisSpec(
                 tickProviderSpec: charts.BasicNumericTickProviderSpec(
                   dataIsInWholeNumbers: true,

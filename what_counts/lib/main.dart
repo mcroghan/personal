@@ -185,9 +185,9 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
                   title: title,
                   switchToCountersTabCallback: switchToCountersTab,
                   key: Key(title),
-                )
+                ),
               );
-            })
+            }),
           ),
         ],
       ),
@@ -213,7 +213,7 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
             ),
           ),
         ),
-      )
+      ),
     );
   }
 }
